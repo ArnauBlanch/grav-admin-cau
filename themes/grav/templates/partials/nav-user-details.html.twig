@@ -1,5 +1,7 @@
 <div id="admin-user-details">
-    <a href="{{ base_url_relative }}/user/{{ admin.user.username|e }}">
+    <a
+    {% if authorize(['admin.super']) %}href="{{ base_url_relative }}/user/{{ admin.user.username|e }}"{% endif %}
+    >
         {% include 'partials/nav-user-avatar.html.twig' %}
 
         <div class="admin-user-names">
