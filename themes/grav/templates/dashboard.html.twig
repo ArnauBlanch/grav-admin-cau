@@ -1,6 +1,10 @@
 {% extends 'partials/base.html.twig' %}
 
-{% set title = "PLUGIN_ADMIN.DASHBOARD"|tu %}
+{% if authorize('admin.super') %}
+  {% set title = "PLUGIN_ADMIN.DASHBOARD"|tu %}
+{% else %}
+  {% set title = 'Inici' %}
+{% endif %}
 
 {% set clear_cache_url = base_url_relative ~ '/cache.json/task' ~ config.system.param_sep ~ 'clearCache'|e('html_attr') %}
 
@@ -25,7 +29,13 @@
             <button data-gpm-checkupdates="" class="button"><i class="fa fa-refresh"></i> {{ "PLUGIN_ADMIN.CHECK_FOR_UPDATES"|tu }}</button>
         {% endif %}
     </div>
-    <h1><i class="fa fa-fw fa-th"></i> {{ "PLUGIN_ADMIN.DASHBOARD"|tu }}</h1>
+    <h1>
+      {% if authorize('admin.super') %}
+        <i class="fa fa-fw fa-th"></i>{{ "PLUGIN_ADMIN.DASHBOARD"|tu }}
+      {% else %}
+      <i class="fa fa-fw fa-home"></i>Inici
+      {% endif %}
+    </h1>
 {% endblock %}
 
 {% block widgets %}
@@ -34,6 +44,7 @@
     {% endif %}
 
     <div id="admin-dashboard">
+      {% if authorize('admin.super') %}
         {% if grav.twig.plugins_hooked_dashboard_widgets_top %}
             {% for widget in grav.twig.plugins_hooked_dashboard_widgets_top %}
                 {% if attribute(config.plugins.admin.widgets, widget.template) == true %}
@@ -43,10 +54,12 @@
                 {% endif %}
             {% endfor %}
         {% endif %}
+      {% endif %}
     </div>
 {% endblock %}
 
 {% block content %}
+  {% if authorize('admin.super') %}
     {%- if grav.twig.plugins_hooked_dashboard_widgets_main -%}
         {%- for widget in grav.twig.plugins_hooked_dashboard_widgets_main -%}
             {%- if attribute(config.plugins.admin.widgets, widget.template) == true %}
@@ -54,6 +67,17 @@
             {% endif -%}
         {%- endfor -%}
     {%- endif -%}
+  {% else %}
+    <div class="dashboard-item-flex">
+      <h1>Hola!</h1>
+      <div style="padding-left: 1rem; padding-right: 1rem; text-align: center;">
+          <img src="{{ theme_url }}/images/logo2.png" height="100px" align="center" />
+              <p>Per <b>editar el teu blog</b>, fes clic a <i>Blog</i>, situat a la barra de l'esquerra.
+              <br>
+              Si és el primer cop que entres a l'Administració, recorda <b>canviar la contrasenya</b> del compte!</p>
+      </div>
+    </div>
+  {% endif %}
 {% endblock %}
 
 {% block content_bottom %}
