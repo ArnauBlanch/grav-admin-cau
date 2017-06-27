@@ -1,4 +1,4 @@
-{% embed 'partials/login.html.twig' with {title:'Grav Admin Login'} %}
+{% embed 'partials/login.html.twig' with {title:'Entra a l\'administració'} %}
 
     {% block form %}
 
@@ -23,8 +23,7 @@
                     <button type="submit" class="button primary" name="task" value="logout"><i class="fa fa-sign-in"></i> {{ 'PLUGIN_ADMIN.LOGOUT'|tu }}</button>
                 {% else %}
                     {% if not authenticated %}
-                        <a class="button secondary" href="{{ base_url_relative }}/forgot"><i class="fa fa-exclamation-circle"></i> {{ 'PLUGIN_ADMIN.LOGIN_BTN_FORGOT'|tu }}</a>
-                        <button type="submit" class="button primary" name="task" value="login"><i class="fa fa-sign-in"></i> {{ 'PLUGIN_ADMIN.LOGIN_BTN'|tu }}</button>
+                        <button type="submit" class="button primary" name="task" value="login" style="margin: auto;"><i class="fa fa-sign-in"></i> {{ 'PLUGIN_ADMIN.LOGIN_BTN'|tu }}</button>
                     {% else %}
                         <button type="submit" class="button primary" name="task" value="logout"><i class="fa fa-sign-in"></i> {{ 'PLUGIN_ADMIN.LOGOUT'|tu }}</button>
                     {% endif %}
