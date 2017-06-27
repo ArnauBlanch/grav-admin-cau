@@ -41,6 +41,8 @@
             <div class="remodal" data-remodal-id="modal" data-remodal-options="hashTracking: false">
                 {% include 'partials/blueprints-new.html.twig' with { blueprints: admin.blueprints('user/account_new') } %}
             </div>
+        {% elseif not authorize('admin.super') %}
+            {% include 'partials/blueprints.html.twig' with { data: user, blueprints: admin.blueprints('user/change-pwd') } %}
         {% else %}
             {% include 'partials/blueprints.html.twig' with { data: user, blueprints: user.blueprints } %}
         {% endif %}
@@ -61,4 +63,3 @@
     </div>
     {% endif %}
 {% endblock %}
-
