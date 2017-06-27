@@ -384,7 +384,14 @@
 
     {% if mode == 'list' or mode == 'edit' %}
     <div class="remodal" data-remodal-id="modal" data-remodal-options="hashTracking: false">
-        {% include 'partials/blueprints-new.html.twig' with { blueprints: admin.blueprints('admin/pages/new'), data: obj_data } %}
+        {% set bp_new = 'admin/pages/new' %}
+        {% if admin.user.title == 'Caps' %}
+            {% set bp_new = bp_new ~ '_blog' %}
+        {% elseif admin.user.title == 'Unitat' or admin.user.title == 'Casal' or admin.user.title == 'Casal admin' %}
+            {% set bp_new = bp_new ~ '_' ~ admin.user.username %}
+        {% endif %}
+
+        {% include 'partials/blueprints-new.html.twig' with { blueprints: admin.blueprints(bp_new), data: obj_data } %}
     </div>
 
     <div class="remodal" data-remodal-id="modal-folder" data-remodal-options="hashTracking: false">
