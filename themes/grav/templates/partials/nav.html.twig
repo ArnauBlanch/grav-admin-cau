@@ -40,7 +40,7 @@
                                 </span>
 
                             {% else %}
-                            <em>Blog</em>
+                            <em>Blog{% if admin.user.title == 'Casal admin' %}s{% endif %}</em>
                             {% endif %}
                         </a>
                     </li>
